@@ -5,7 +5,7 @@ install:
 	pipenv install
 
 .PHONY: install-dev
-install:
+install-dev:
 	pipenv install --dev
 
 .PHONY: lint
