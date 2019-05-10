@@ -2,9 +2,11 @@
 
 .PHONY: install
 install:
-	pip install -U pip wheel setuptools
-	pip install -r requirements.txt
-	pip install -e .
+	pipenv install
+
+.PHONY: install-dev
+install:
+	pipenv install --dev
 
 .PHONY: lint
 lint:
@@ -12,7 +14,7 @@ lint:
 
 .PHONY: test
 test:
-	pytest
+	pytest --cov-report=term-missing --cov=. --cov-fail-under=80
 
 .PHONY: all
 all: test lint

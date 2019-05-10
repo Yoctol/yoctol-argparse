@@ -1,16 +1,17 @@
 language: python
-cache: pip
+
 python:
-- '3.6'
-- nightly
-matrix:
-  allow_failures:
-  - python: nightly
+  - '3.6'
+
 install:
-- make install
+  - pip install pipenv==2018.10.13
+  - pipenv run make install-dev
+
+# command to run tests
 script:
-- make lint
-- make test
+  - pipenv run make lint
+  - pipenv run make test
+
 # deploy:
 #   provider: pypi
 #   user: noobOriented
