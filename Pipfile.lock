@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "ee858af516a038d4f6dd488e88201cc364faa2c4df9dbf4948d5da07611071d8"
+            "sha256": "93f74ef801e494f2aa428f2e5e3ed7857892898a62b1413e00edb563baa1f681"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -15,7 +15,12 @@
             }
         ]
     },
-    "default": {},
+    "default": {
+        "yoctol-argparse": {
+            "editable": true,
+            "path": "."
+        }
+    },
     "develop": {
         "atomicwrites": {
             "hashes": [
