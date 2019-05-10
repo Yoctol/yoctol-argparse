@@ -14,7 +14,7 @@ lint:
 
 .PHONY: test
 test:
-	pytest --cov-report=term-missing --cov=. --cov-fail-under=80
+	pytest --cov-report=term-missing --cov=yoctol-argparse/ --cov-fail-under=80
 
 .PHONY: all
 all: test lint
