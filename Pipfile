@@ -4,6 +4,7 @@ url = "https://pypi.python.org/simple"
 name = "pypi"
 
 [packages]
+termcolor = "*"
 yoctol-argparse = {editable = true, path = "."}
 
 [dev-packages]

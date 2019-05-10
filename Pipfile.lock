@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "93f74ef801e494f2aa428f2e5e3ed7857892898a62b1413e00edb563baa1f681"
+            "sha256": "f6c510f1660912b2820f2007f1ab143c6724d4e4b4c36519f2ea87fa42a48f67"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,13 @@
         ]
     },
     "default": {
+        "termcolor": {
+            "hashes": [
+                "sha256:1d6d69ce66211143803fbc56652b41d73b4a400a2891d7bf7a1cdf4c02de613b"
+            ],
+            "index": "pypi",
+            "version": "==1.1.0"
+        },
         "yoctol-argparse": {
             "editable": true,
             "path": "."
