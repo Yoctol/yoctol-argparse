@@ -1,0 +1,12 @@
+{
+  "generator-python3-package": {
+    "packageName": "yoctol-argparse",
+    "packageDesc": "Argument Parser create by Yoctol",
+    "fullName": "noobOriented",
+    "pypiUserName": "noobOriented",
+    "githubUserName": "noobOriented",
+    "email": "jsaon@yoctol.com",
+    "useTravisCI": "true",
+    "version": "0.4.0"
+  }
+}
