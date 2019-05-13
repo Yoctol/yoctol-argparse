@@ -9,9 +9,10 @@ class YoctolFormatter(argparse.ArgumentDefaultsHelpFormatter):
     def __init__(self, prog):
         super().__init__(prog, max_help_position=4, width=shutil.get_terminal_size()[0])
 
-    # Override: Change some format part to avoid [], () bracket broken
+    # HACK Override: Change some format part to avoid [], () bracket broken
     # https://github.com/python/cpython/blob/3.7/Lib/argparse.py#L391-L486
     def _format_actions_usage(self, actions, groups):  # noqa: C901
+        ########## COPY FROM SOURCE CODE ##########
         # find group indices and identify actions in groups
         group_actions = set()
         inserts = {}
@@ -102,7 +103,8 @@ class YoctolFormatter(argparse.ArgumentDefaultsHelpFormatter):
         text = re.sub(r'(%s) ' % open_, r'\1', text)
         text = re.sub(r' (%s)' % close, r'\1', text)
         text = re.sub(r'%s *%s' % (open_, close), r'', text)
-        # remove one line from source code
+        ########## END COPY FROM SOURCE CODE ##########
+        # remove L482 from source code to avoid [], () bracket broken
         text = text.strip()
 
         # return the text
@@ -112,6 +114,7 @@ class YoctolFormatter(argparse.ArgumentDefaultsHelpFormatter):
         if action.metavar is not None:
             result = action.metavar
         elif action.choices is not None:
+            # custom format for choices
             result = format_choices(action.choices)
         else:
             result = default_metavar
@@ -124,9 +127,11 @@ class YoctolFormatter(argparse.ArgumentDefaultsHelpFormatter):
         return format_func
 
     def _get_default_metavar_for_optional(self, action):
+        # add default if action.type has no '__name__' attribute
         return getattr(action.type, '__name__', repr(action.type))
 
     def _get_default_metavar_for_positional(self, action):
+        # add default if action.type has no '__name__' attribute
         return getattr(action.type, '__name__', repr(action.type))
 
 
