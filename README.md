@@ -10,17 +10,29 @@
 [pypi-url]: https://pypi.python.org/pypi/yoctol-argparse
 [release-image]: https://img.shields.io/github/release/Yoctol/yoctol-argparse.svg
 
-
 About this project...
 
 ## Installation
 
-Installation instructions...
+```bash
+pip install yoctol-argparse
+```
 
 ## Usage
 
-Usage instructions...
+main.py
+
+```python
+from yoctol_argparse import YoctolArgumentParser
+
+parser = YoctolArgumentParser()
+parser.add_argument('--fruit', choices=['apple', 'banana', 'lemon'])
+
+```
 
 ## Test
 
-Testing instructions...
+```bash
+make install-dev
+make test
+```
