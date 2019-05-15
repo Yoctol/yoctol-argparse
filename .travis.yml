@@ -21,5 +21,4 @@ deploy:
   skip_upload_docs: true
   true:
     tags: true
-    python:
-    - 3.6
+    python: 3.6
