@@ -1,22 +1,17 @@
 language: python
-
 python:
-  - '3.6'
-
+- '3.6'
 install:
-  - pip install pipenv==2018.10.13
-  - pipenv run make install-dev
-
-# command to run tests
+- pip install pipenv==2018.10.13
+- pipenv run make install-dev
 script:
-  - pipenv run make lint
-  - pipenv run make test
-
+- pipenv run make lint
+- pipenv run make test
 deploy:
   provider: pypi
   user: noobOriented
   password:
-    secure: rgQuB+MIZ9vIrU7s9jiB2fkTkxBzIc0O55xsfFMKPs3Sx5ArNd1IocSr697OzFqTezNzCMhlX4KdAkUW6LVw2FvisC/eUk/8JBLIg3SnWtenp4CdV60Rie+mlpv/y+xkgU7MMfbQNgyJTbhJCzAaouuLkS+LXshejXj20eGuIdR5AWmkrLPwzGOkokR/0ByhWjyTdQ3YYECT6Zb7FDFkAmSFok0gWRNp4Ok0q/N62rQN2QXcsCVBcw9sKvjqt4Ss4KeCt4wfYqjqb4QFFwS9XizVlpN/ZSQj0ieSCIzzPKIA5RDGNUhsHJa8Z+qKPypt5MpLDCKRMELVnYEGQtlliQjpqJsZOniqsxnyDr/V5FFEJyVElg5vMApzAx9I4YUM9MDFYrTE8Gz7ymMmtMJiTBro4buS0QhPVLWumHDbA5I84sfnBnHiuM7Vm5tJjwFv7okE4D/ZUurK5CFJuKlau0sbZ9FjPIZ2IYmAPoH7M66vl3/LS/rwIcN4z9qbA6YhzvyM5jpIIPbn+Q0MbBbYc5JNzLmtgpqhkvtggwtNVUCWUwCjp/7Es7te+URZIb9NxShvRYgESoB716KkyzbxXJ5/yuK9N8iz7XFqjfQv+Bs7XN8xy5mb0OCmgu3K2mwcNhZ5auPevgLrP9jj3M9kO/0XWT1ap0uV84w6zuT9wPA=
+    secure: NS/1wezoLcihZcAzeZMP5lsC6guQb7n27nBPfsFxuaxz2HJJuPSUty6b1nB+uQVG8AhixjFMxAUzafP69Z9ClU849jrqCDanzsMZeffYtI9uH8t9vQWbQBjv9NU7s9UlbnFXWu1Fg0mLtavO7FkzNop3Loxhk195czdfelGjDjBdtXVotDx3JDYT+klmskUOPVD1gV56HMN6/OdSYXOykO91DX3SQiVDaKum2xIVK5qMdipR3G1mpqk2ciwCypd0CDWXNbW5lHpgY8kJ4K6vFVUi/SEvBh4EzrPw4BZ6GL8PULWYxHxMis7cp8rEzJljABRWScEqknjCeyb27Qemsa0/LcAUz4aTYHhsMjKsRn8VaE+BMopZKCQ2AGdGPr9ougB1uLpj1jVLB80XNR7BIF+JkDUs9Rv4XSvTZf7vLbaTxSyS0udJ32j5Q8ncvVwrCBmpbtm2MIeE2C6WndNhNEjFzWGLoekSzt+bT5tRAolEikho/i4fr8Zj4I7cpBxnD6rrTCjr9b6eCXdmgrsfikt9aQbNc0ICKDDSC0U5ALCzs/xRkOsIpKWULz1ZFlFe4Dasu6gEmJ9b2/XpW1pAjOJpxJNItOkEAJqx5DFUoUXjyGy4IddgBKnaqQ3gEc09n2sqsKHTRV7SXxhk+N7mlseFYXkhUYxIv03yKVHx4d0=
   distributions: sdist bdist_wheel
   skip_upload_docs: true
   true:
