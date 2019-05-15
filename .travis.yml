@@ -12,14 +12,14 @@ script:
   - pipenv run make lint
   - pipenv run make test
 
-# deploy:
-#   provider: pypi
-#   user: noobOriented
-#   password:
-#     secure: rgQuB+MIZ9vIrU7s9jiB2fkTkxBzIc0O55xsfFMKPs3Sx5ArNd1IocSr697OzFqTezNzCMhlX4KdAkUW6LVw2FvisC/eUk/8JBLIg3SnWtenp4CdV60Rie+mlpv/y+xkgU7MMfbQNgyJTbhJCzAaouuLkS+LXshejXj20eGuIdR5AWmkrLPwzGOkokR/0ByhWjyTdQ3YYECT6Zb7FDFkAmSFok0gWRNp4Ok0q/N62rQN2QXcsCVBcw9sKvjqt4Ss4KeCt4wfYqjqb4QFFwS9XizVlpN/ZSQj0ieSCIzzPKIA5RDGNUhsHJa8Z+qKPypt5MpLDCKRMELVnYEGQtlliQjpqJsZOniqsxnyDr/V5FFEJyVElg5vMApzAx9I4YUM9MDFYrTE8Gz7ymMmtMJiTBro4buS0QhPVLWumHDbA5I84sfnBnHiuM7Vm5tJjwFv7okE4D/ZUurK5CFJuKlau0sbZ9FjPIZ2IYmAPoH7M66vl3/LS/rwIcN4z9qbA6YhzvyM5jpIIPbn+Q0MbBbYc5JNzLmtgpqhkvtggwtNVUCWUwCjp/7Es7te+URZIb9NxShvRYgESoB716KkyzbxXJ5/yuK9N8iz7XFqjfQv+Bs7XN8xy5mb0OCmgu3K2mwcNhZ5auPevgLrP9jj3M9kO/0XWT1ap0uV84w6zuT9wPA=
-#   distributions: sdist bdist_wheel
-#   skip_upload_docs: true
-#   true:
-#     tags: true
-#     python:
-#     - 3.6
+deploy:
+  provider: pypi
+  user: noobOriented
+  password:
+    secure: rgQuB+MIZ9vIrU7s9jiB2fkTkxBzIc0O55xsfFMKPs3Sx5ArNd1IocSr697OzFqTezNzCMhlX4KdAkUW6LVw2FvisC/eUk/8JBLIg3SnWtenp4CdV60Rie+mlpv/y+xkgU7MMfbQNgyJTbhJCzAaouuLkS+LXshejXj20eGuIdR5AWmkrLPwzGOkokR/0ByhWjyTdQ3YYECT6Zb7FDFkAmSFok0gWRNp4Ok0q/N62rQN2QXcsCVBcw9sKvjqt4Ss4KeCt4wfYqjqb4QFFwS9XizVlpN/ZSQj0ieSCIzzPKIA5RDGNUhsHJa8Z+qKPypt5MpLDCKRMELVnYEGQtlliQjpqJsZOniqsxnyDr/V5FFEJyVElg5vMApzAx9I4YUM9MDFYrTE8Gz7ymMmtMJiTBro4buS0QhPVLWumHDbA5I84sfnBnHiuM7Vm5tJjwFv7okE4D/ZUurK5CFJuKlau0sbZ9FjPIZ2IYmAPoH7M66vl3/LS/rwIcN4z9qbA6YhzvyM5jpIIPbn+Q0MbBbYc5JNzLmtgpqhkvtggwtNVUCWUwCjp/7Es7te+URZIb9NxShvRYgESoB716KkyzbxXJ5/yuK9N8iz7XFqjfQv+Bs7XN8xy5mb0OCmgu3K2mwcNhZ5auPevgLrP9jj3M9kO/0XWT1ap0uV84w6zuT9wPA=
+  distributions: sdist bdist_wheel
+  skip_upload_docs: true
+  true:
+    tags: true
+    python:
+    - 3.6
