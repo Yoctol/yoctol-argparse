@@ -15,7 +15,7 @@ About this project...
 ## Installation
 
 ```bash
-pip install uttut
+pip install yoctol-argparse
 ```
 
 ## Usage
