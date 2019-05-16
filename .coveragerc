@@ -27,6 +27,7 @@ omit =
     *__init__.py
     *test*
     .venv/*
+    examples/*
 
 [html]
 directory = coverage_html_report
