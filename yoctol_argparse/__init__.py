@@ -5,4 +5,6 @@ from .types import (
     int_in_range,
     float_in_range,
     path,
+    filepath,
+    dirpath,
 )

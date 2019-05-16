@@ -1,6 +1,13 @@
+import os
 import pytest
 
-from ..types import int_in_range, float_in_range, path
+from ..types import (
+    int_in_range,
+    float_in_range,
+    path,
+    filepath,
+    dirpath,
+)
 
 
 @pytest.mark.parametrize('func, x, valid', [
@@ -35,6 +42,22 @@ def test_float_in_range(func, x, valid):
 
 def test_path():
     assert path("A//B") == path("A/B/") == path("A/./B") == path("A/foo/../B") == "A/B"
+
+
+def test_filepath(tmpdir):
+    filename = os.path.join(tmpdir, 'new_file')
+    with pytest.raises(ValueError):
+        filepath(filename)
+
+    with open(filename, 'w'):
+        pass
+    assert filepath(filename) == filename
+
+
+def test_dirpath(tmpdir):
+    assert dirpath(tmpdir) == tmpdir
+    with pytest.raises(ValueError):
+        dirpath(os.path.join(tmpdir, 'dir_not_existed'))
 
 
 @pytest.mark.parametrize('func, expected_name', [

@@ -57,3 +57,21 @@ def _repr_inteval(minval, maxval, inclusive):
 
 def path(x):
     return os.path.normpath(x)
+
+
+def filepath(x):
+    """Check if file exists.
+    """
+    x = path(x)
+    if not os.path.isfile(x):
+        raise ValueError
+    return x
+
+
+def dirpath(x):
+    """Check if directory exists.
+    """
+    x = path(x)
+    if not os.path.isdir(x):
+        raise ValueError
+    return x
