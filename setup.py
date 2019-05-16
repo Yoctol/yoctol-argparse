@@ -16,6 +16,7 @@ setup(
     version='0.1.0',
     description='Argument Parser create by Yoctol',
     long_description=long_description,
+    long_description_content_type="text/markdown",
     python_requires='>=3.6',
     packages=find_packages(),
     author='noobOriented',
