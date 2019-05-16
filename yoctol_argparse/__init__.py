@@ -6,3 +6,15 @@ from .types import (
     float_in_range,
     path,
 )
+
+# just for import sugar
+from argparse import (
+    FileType,
+    Namespace,
+    Action,
+    ONE_OR_MORE,
+    OPTIONAL,
+    REMAINDER,
+    SUPPRESS,
+    ZERO_OR_MORE,
+)
