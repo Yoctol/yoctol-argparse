@@ -66,7 +66,7 @@ class StoreIdKwargs(argparse.Action):
         except NameError:
             raise argparse.ArgumentError(
                 self,
-                "value should be int, float or boolean.",
+                "value should be built-in types.",
             )
 
         setattr(namespace, self.dest, (id_, kwargs))
@@ -77,7 +77,7 @@ class StoreIdKwargs(argparse.Action):
         for kv in kvs:
             if '=' in kv:
                 key, val = kv.split('=')
-                val = eval(val)
+                val = eval(val, {}, {})  # disallow local, global vars
             elif self.use_bool_abbreviation:
                 key, val = kv, True
             else:
