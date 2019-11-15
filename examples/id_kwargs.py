@@ -18,6 +18,8 @@ parser.parse_args('--exercise bench weight=70.0&reps=4&sets=4'.split())
 # = Namespace(exercise=('bench', {'weight': 70.0, 'reps': 4, 'sets': 4}))
 parser.parse_args('--exercise squat weight=90.0&reps=4&sets=4&use_belt'.split())
 # = Namespace(exercise=('squat', {'weight': 90.0, 'reps': 4, 'sets': 4, 'use_belt': True}))
+parser.parse_args('--exercise deadlift trainer="Daniel"&style="sumo"'.split())
+# = Namespace(exercise=('deadlift', {'trainer': 'Daniel', 'style': 'sumo'}))
 
 parser.parse_args('--exercise bench'.split())     # invalid nargs != 2
 parser.parse_args('--exercise smith_machine weight=10'.split())  # invalid id isn't in choices

@@ -51,9 +51,9 @@ class TestStoreIdKwargs:
         return parser
 
     def test_store(self, yoctol_parser):
-        with patch('sys.argv', 'main.py --foo a x=1&y=2&z'.split(' ')):
+        with patch('sys.argv', 'main.py --foo a x=1&y=2&z&w="w"'.split(' ')):
             args = yoctol_parser.parse_args()
-        assert args.foo == ('a', {'x': 1, 'y': 2, 'z': True})
+        assert args.foo == ('a', {'x': 1, 'y': 2, 'z': True, 'w': 'w'})
 
     @pytest.mark.parametrize('invalid_arg', [
         pytest.param('main.py --foo a', id='invalid_nargs'),
