@@ -1,4 +1,4 @@
-from .actions import AppendIdValuePair
+from .actions import AppendIdValuePair, StoreIdKwargs
 from .formatters import YoctolFormatter
 from .parser import YoctolArgumentParser
 from .types import (
