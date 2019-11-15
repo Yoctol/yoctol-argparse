@@ -39,14 +39,14 @@ class StoreIdKwargs(argparse.Action):
             self,
             id_choices,
             split_token='&',
-            use_boolean_abbreviation=True,
+            use_bool_abbreviation=True,
             **kwargs,
         ):
         super().__init__(nargs=2, **kwargs)
         self.id_choices = id_choices
         self.split_token = split_token
-        self.use_boolean_abbreviation = use_boolean_abbreviation
-        self.metavar = (format_choices(id_choices), 'KWARGS STRING')
+        self.use_bool_abbreviation = use_bool_abbreviation
+        self.metavar = (format_choices(id_choices), 'KWARGS_STRING')
 
     def __call__(self, parser, namespace, values, option_string=None):
         id_, kwarg_string = values
@@ -66,7 +66,7 @@ class StoreIdKwargs(argparse.Action):
         except NameError:
             raise argparse.ArgumentError(
                 self,
-                "value should be int, float or boolean."
+                "value should be int, float or boolean.",
             )
 
         setattr(namespace, self.dest, (id_, kwargs))
@@ -78,7 +78,7 @@ class StoreIdKwargs(argparse.Action):
             if '=' in kv:
                 key, val = kv.split('=')
                 val = eval(val)
-            elif self.use_boolean_abbreviation:
+            elif self.use_bool_abbreviation:
                 key, val = kv, True
             else:
                 raise ValueError

@@ -46,7 +46,7 @@ class TestStoreIdKwargs:
             '--foo',
             action=StoreIdKwargs,
             id_choices=['a', 'b'],
-            use_boolean_abbreviation=True,
+            use_bool_abbreviation=True,
         )
         return parser
 
