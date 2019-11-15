@@ -58,10 +58,15 @@ class StoreIdKwargs(argparse.Action):
             )
         try:
             kwargs = self._process_kwargs_string(kwarg_string)
-        except (TypeError, ValueError):
+        except ValueError:
             raise argparse.ArgumentError(
                 self,
                 f"invalid kwargs: {kwarg_string!r}",
+            )
+        except NameError:
+            raise argparse.ArgumentError(
+                self,
+                "value should be int, float or boolean."
             )
 
         setattr(namespace, self.dest, (id_, kwargs))
