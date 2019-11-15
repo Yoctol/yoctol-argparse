@@ -46,7 +46,7 @@ class StoreIdKwargs(argparse.Action):
         self.id_choices = id_choices
         self.split_token = split_token
         self.use_bool_abbreviation = use_bool_abbreviation
-        self.metavar = (format_choices(id_choices), 'KWARGS_STRING')
+        self.metavar = (format_choices(id_choices), f'KEY1=VALUE1{split_token}KEY2=VALUE2...')
 
     def __call__(self, parser, namespace, values, option_string=None):
         id_, kwarg_string = values

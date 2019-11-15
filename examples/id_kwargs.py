@@ -28,9 +28,9 @@ parser.parse_args('--exercise bench weight=10&weight=40'.split())  # duplicated 
 
 
 parser.parse_args(['--help'])
-# usage: id_value_pair.py [-h] [--exercise {squat, bench, deadlift} KWARGS_STRING]
+# usage: id_value_pair.py [-h] [--exercise {squat, bench, deadlift} KEY1=VAL1&KEY2=VAL2...]
 
 # optional arguments:
 #   -h, --help
 #     show this help message and exit
-#   --exercise {squat, bench, deadlift} KWARGS_STRING
+#   --exercise {squat, bench, deadlift} KEY1=VAL1&KEY2=VAL2...
