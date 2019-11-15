@@ -14,6 +14,8 @@ parser.add_argument(
     help='(exercise_type, kwargs_string)',
 )
 
+parser.parse_args('--exercise bench'.split())
+# = Namespace(exercise=('bench', {}))
 parser.parse_args('--exercise bench weight=70.0&reps=4&sets=4'.split())
 # = Namespace(exercise=('bench', {'weight': 70.0, 'reps': 4, 'sets': 4}))
 parser.parse_args('--exercise squat weight=90.0&reps=4&sets=4&use_belt'.split())
@@ -21,7 +23,8 @@ parser.parse_args('--exercise squat weight=90.0&reps=4&sets=4&use_belt'.split())
 parser.parse_args('--exercise deadlift trainer="Daniel"&style="sumo"'.split())
 # = Namespace(exercise=('deadlift', {'trainer': 'Daniel', 'style': 'sumo'}))
 
-parser.parse_args('--exercise bench'.split())     # invalid nargs != 2
+parser.parse_args('--exercise'.split())     # invalid nargs = 0
+parser.parse_args('--exercise bench squat deadlift'.split())     # invalid nargs > 2
 parser.parse_args('--exercise smith_machine weight=10'.split())  # invalid id isn't in choices
 parser.parse_args('--exercise bench weight=max'.split())   # invalid value isn't int, float or bool
 parser.parse_args('--exercise bench weight=10&weight=40'.split())  # duplicated key

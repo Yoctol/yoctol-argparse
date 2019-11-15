@@ -42,31 +42,40 @@ class StoreIdKwargs(argparse.Action):
             use_bool_abbreviation=True,
             **kwargs,
         ):
-        super().__init__(nargs=2, **kwargs)
+        super().__init__(nargs='+', **kwargs)
         self.id_choices = id_choices
         self.split_token = split_token
         self.use_bool_abbreviation = use_bool_abbreviation
         self.metavar = (format_choices(id_choices), f'KEY1=VALUE1{split_token}KEY2=VALUE2...')
 
     def __call__(self, parser, namespace, values, option_string=None):
-        id_, kwarg_string = values
+        if len(values) == 2:
+            id_, kwarg_string = values
+            try:
+                kwargs = self._process_kwargs_string(kwarg_string)
+            except ValueError:
+                raise argparse.ArgumentError(
+                    self,
+                    f"invalid kwargs: {kwarg_string!r}",
+                )
+            except NameError:
+                raise argparse.ArgumentError(
+                    self,
+                    "value should be built-in types.",
+                )
+        elif len(values) == 1:
+            id_, kwargs = values[0], {}
+        else:
+            raise argparse.ArgumentError(
+                self,
+                'expected at most 2 argument',
+            )
+
         if id_ not in self.id_choices:
             raise argparse.ArgumentError(
                 self,
                 f"invalid choice: '{id_}' "
                 f"(choose from {', '.join(map(repr, self.id_choices))})",
-            )
-        try:
-            kwargs = self._process_kwargs_string(kwarg_string)
-        except ValueError:
-            raise argparse.ArgumentError(
-                self,
-                f"invalid kwargs: {kwarg_string!r}",
-            )
-        except NameError:
-            raise argparse.ArgumentError(
-                self,
-                "value should be built-in types.",
             )
 
         setattr(namespace, self.dest, (id_, kwargs))

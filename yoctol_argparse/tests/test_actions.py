@@ -50,14 +50,18 @@ class TestStoreIdKwargs:
         )
         return parser
 
-    def test_store(self, yoctol_parser):
-        with patch('sys.argv', 'main.py --foo a x=1&y=2&z&w="w"'.split(' ')):
+    @pytest.mark.parametrize('arg_string, expected_output', [
+        ('main.py --foo a', ('a', {})),
+        ('main.py --foo a x=1&y=False&z&w="w"', ('a', {'x': 1, 'y': False, 'z': True, 'w': 'w'})),
+    ])
+    def test_store(self, yoctol_parser, arg_string, expected_output):
+        with patch('sys.argv', arg_string.split(' ')):
             args = yoctol_parser.parse_args()
-        assert args.foo == ('a', {'x': 1, 'y': 2, 'z': True, 'w': 'w'})
+        assert args.foo == expected_output
 
     @pytest.mark.parametrize('invalid_arg', [
-        pytest.param('main.py --foo a', id='invalid_nargs'),
-        pytest.param('main.py --foo a 1 b', id='invalid_nargs'),
+        pytest.param('main.py --foo', id='nargs<1'),
+        pytest.param('main.py --foo a 1 b', id='nargs>2'),
         pytest.param('main.py --foo c 1', id='invalid_choice'),
         pytest.param('main.py --foo a x=1=y', id='invalid_format_='),
         pytest.param('main.py --foo a x=1,y=y', id='invalid_format_split'),
