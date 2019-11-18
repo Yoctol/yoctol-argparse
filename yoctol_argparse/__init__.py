@@ -1,3 +1,10 @@
+from .__version__ import (
+    __title__,
+    __version__,
+    __description__,
+    __author__,
+)
+
 from .actions import AppendIdValuePair, StoreIdKwargs
 from .formatters import YoctolFormatter
 from .parser import YoctolArgumentParser

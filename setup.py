@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 from setuptools import setup, find_packages
@@ -11,15 +12,21 @@ else:
     long_description = '-'
 
 
+here = os.path.abspath(os.path.dirname(__file__))
+about = {}
+with open(os.path.join(here, 'yoctol_argparse', '__version__.py'), 'r') as filep:
+    exec(filep.read(), about)
+
+
 setup(
-    name='yoctol-argparse',
-    version='0.2.0',
-    description='Argument Parser create by Yoctol',
+    name=about['__title__'],
+    version=about['__version__'],
+    description=about['__description__'],
     long_description=long_description,
     long_description_content_type="text/markdown",
     python_requires='>=3.6',
     packages=find_packages(),
-    author='noobOriented',
+    author=about['__author__'],
     author_email='jsaon@yoctol.com',
     url='',
     license='MIT',
