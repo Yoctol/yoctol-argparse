@@ -38,7 +38,7 @@ class StoreIdKwargs(argparse.Action):
     def __init__(
             self,
             id_choices,
-            split_token='&',
+            split_token=',',
             use_bool_abbreviation=True,
             **kwargs,
         ):
