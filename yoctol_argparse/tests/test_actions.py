@@ -51,8 +51,19 @@ class TestStoreIdKwargs:
         return parser
 
     @pytest.mark.parametrize('arg_string, expected_output', [
-        ('main.py --foo a', ('a', {})),
-        ('main.py --foo a x=1,y=False,z,w="w"', ('a', {'x': 1, 'y': False, 'z': True, 'w': 'w'})),
+        ['main.py --foo a', ('a', {})],
+        [
+            'main.py --foo a I=1,F1=1.,F2=1e-4,F3=-1e-4',
+            ('a', {'I': 1, 'F1': 1., 'F2': 1e-4, 'F3': -1e-4})
+        ],
+        [
+            'main.py --foo a B1=False,B2=True,B3',
+            ('a', {'B1': False, 'B2': True, 'B3': True}),
+        ],
+        [
+            'main.py --foo a NONE=None,FUNC=max,S=s',
+            ('a', {'NONE': None, 'FUNC': max, 'S': 's'}),
+        ],
     ])
     def test_store(self, yoctol_parser, arg_string, expected_output):
         with patch('sys.argv', arg_string.split(' ')):
@@ -65,7 +76,6 @@ class TestStoreIdKwargs:
         pytest.param('main.py --foo c 1', id='invalid_choice'),
         pytest.param('main.py --foo a x=1=y', id='invalid_format_='),
         pytest.param('main.py --foo a x=1+y=y', id='invalid_format_split'),
-        pytest.param('main.py --foo a x=1,y=y', id='invalid_value'),
         pytest.param('main.py --foo a x=1,x=2', id='duplicated_key'),
     ])
     def test_raise_invalid_arg(self, yoctol_parser, invalid_arg):
