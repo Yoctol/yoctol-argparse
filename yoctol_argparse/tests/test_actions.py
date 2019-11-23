@@ -54,7 +54,7 @@ class TestStoreIdKwargs:
         ['main.py --foo a', ('a', {})],
         [
             'main.py --foo a I=1,F1=1.,F2=1e-4,F3=-1e-4',
-            ('a', {'I': 1, 'F1': 1., 'F2': 1e-4, 'F3': -1e-4})
+            ('a', {'I': 1, 'F1': 1., 'F2': 1e-4, 'F3': -1e-4}),
         ],
         [
             'main.py --foo a B1=False,B2=True,B3',
@@ -62,7 +62,7 @@ class TestStoreIdKwargs:
         ],
         [
             'main.py --foo a NONE=None,FUNC=max,S=s',
-            ('a', {'NONE': None, 'FUNC': max, 'S': 's'}),
+            StoreIdKwargs.IdKwargsPair('a', {'NONE': None, 'FUNC': max, 'S': 's'}),
         ],
     ])
     def test_store(self, yoctol_parser, arg_string, expected_output):

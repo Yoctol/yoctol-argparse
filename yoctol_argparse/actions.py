@@ -1,4 +1,5 @@
 import argparse
+from collections import namedtuple
 
 from .formatters import format_choices
 
@@ -34,6 +35,8 @@ class AppendIdValuePair(argparse.Action):
 
 
 class StoreIdKwargs(argparse.Action):
+
+    IdKwargsPair = namedtuple('IdKwargsPair', ['id', 'kwargs'])
 
     def __init__(
             self,
@@ -80,7 +83,7 @@ class StoreIdKwargs(argparse.Action):
                 f"(choose from {', '.join(map(repr, self.id_choices))})",
             )
 
-        setattr(namespace, self.dest, (id_, kwargs))
+        setattr(namespace, self.dest, self.IdKwargsPair(id_, kwargs))
 
     def _process_kwargs_string(self, kwarg_string):
         kwargs = {}
