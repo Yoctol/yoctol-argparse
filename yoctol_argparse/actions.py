@@ -5,12 +5,22 @@ from collections import namedtuple
 from .formatters import format_choices
 
 
-class AppendIdValuePair(argparse.Action):
+class IdValuePair(argparse.Action):
 
-    def __init__(self, id_choices, value_type, value_metavar, **kwargs):
+    def __init__(
+            self,
+            id_choices,
+            value_type,
+            value_metavar,
+            sub_action='store',
+            **kwargs,
+        ):
         super().__init__(nargs=2, **kwargs)
         self.id_choices = id_choices
         self.value_type = value_type
+        if sub_action not in ('store', 'append'):
+            raise ValueError(f'unknown sub_action {sub_action:r}')
+        self.sub_action = sub_action
         self.metavar = (format_choices(id_choices), value_metavar)
 
     def __call__(self, parser, namespace, values, option_string=None):
@@ -29,13 +39,18 @@ class AppendIdValuePair(argparse.Action):
                 f"invalid choice: '{id_}' "
                 f"(choose from {', '.join(map(repr, self.id_choices))})",
             )
-        if not getattr(namespace, self.dest, None):
-            setattr(namespace, self.dest, [])
 
-        getattr(namespace, self.dest).append((id_, value))
+        if self.sub_action == 'store':
+            setattr(namespace, self.dest, (id_, value))
+        elif self.sub_action == 'append':
+            if not getattr(namespace, self.dest, None):
+                setattr(namespace, self.dest, [])
+            getattr(namespace, self.dest).append((id_, value))
+        else:
+            raise AssertionError
 
 
-class StoreIdKwargs(argparse.Action):
+class IdKwargs(argparse.Action):
 
     IdKwargsPair = namedtuple('IdKwargsPair', ['id', 'kwargs'])
 
@@ -45,6 +60,7 @@ class StoreIdKwargs(argparse.Action):
             split_token=',',
             use_bool_abbreviation=True,
             default_as_string=True,
+            sub_action='store',
             **kwargs,
         ):
         super().__init__(nargs='+', **kwargs)
@@ -52,6 +68,9 @@ class StoreIdKwargs(argparse.Action):
         self.split_token = split_token
         self.default_as_string = default_as_string
         self.use_bool_abbreviation = use_bool_abbreviation
+        if sub_action not in ('store', 'append'):
+            raise ValueError(f'unknown sub_action {sub_action:r}')
+        self.sub_action = sub_action
         self.metavar = (format_choices(id_choices), f'KEY1=VALUE1{split_token}KEY2=VALUE2')
 
     def __call__(self, parser, namespace, values, option_string=None):
@@ -84,7 +103,14 @@ class StoreIdKwargs(argparse.Action):
                 f"(choose from {', '.join(map(repr, self.id_choices))})",
             )
 
-        setattr(namespace, self.dest, self.IdKwargsPair(id_, kwargs))
+        if self.sub_action == 'store':
+            setattr(namespace, self.dest, self.IdKwargsPair(id_, kwargs))
+        elif self.sub_action == 'append':
+            if not getattr(namespace, self.dest, None):
+                setattr(namespace, self.dest, [])
+            getattr(namespace, self.dest).append(self.IdKwargsPair(id_, kwargs))
+        else:
+            raise AssertionError
 
     def _process_kwargs_string(self, kwarg_string):
         kwargs = {}

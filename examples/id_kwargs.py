@@ -1,13 +1,13 @@
 from yoctol_argparse import (
     YoctolArgumentParser,
-    StoreIdKwargs,
+    IdKwargs,
 )
 
 parser = YoctolArgumentParser()
 
 parser.add_argument(
     '--exercise',
-    action=StoreIdKwargs,
+    action=IdKwargs,
     id_choices=['squat', 'bench', 'deadlift'],
     split_token=',',
     use_bool_abbreviation=True,
