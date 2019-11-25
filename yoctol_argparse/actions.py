@@ -1,4 +1,5 @@
 import argparse
+import ast
 from collections import namedtuple
 
 from .formatters import format_choices
@@ -92,8 +93,8 @@ class StoreIdKwargs(argparse.Action):
             if '=' in kv:
                 key, val = kv.split('=')
                 try:
-                    val = eval(val, {}, {})  # disallow local, global vars
-                except NameError:
+                    val = ast.literal_eval(val)
+                except (SyntaxError, ValueError):
                     if not self.default_as_string:
                         raise
                     # default as string if can't eval
