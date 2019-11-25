@@ -1,4 +1,6 @@
 import argparse
+import ast
+from collections import namedtuple
 
 from .formatters import format_choices
 
@@ -35,16 +37,20 @@ class AppendIdValuePair(argparse.Action):
 
 class StoreIdKwargs(argparse.Action):
 
+    IdKwargsPair = namedtuple('IdKwargsPair', ['id', 'kwargs'])
+
     def __init__(
             self,
             id_choices,
             split_token=',',
             use_bool_abbreviation=True,
+            default_as_string=True,
             **kwargs,
         ):
         super().__init__(nargs='+', **kwargs)
         self.id_choices = id_choices
         self.split_token = split_token
+        self.default_as_string = default_as_string
         self.use_bool_abbreviation = use_bool_abbreviation
         self.metavar = (format_choices(id_choices), f'KEY1=VALUE1{split_token}KEY2=VALUE2')
 
@@ -78,7 +84,7 @@ class StoreIdKwargs(argparse.Action):
                 f"(choose from {', '.join(map(repr, self.id_choices))})",
             )
 
-        setattr(namespace, self.dest, (id_, kwargs))
+        setattr(namespace, self.dest, self.IdKwargsPair(id_, kwargs))
 
     def _process_kwargs_string(self, kwarg_string):
         kwargs = {}
@@ -86,7 +92,12 @@ class StoreIdKwargs(argparse.Action):
         for kv in kvs:
             if '=' in kv:
                 key, val = kv.split('=')
-                val = eval(val, {}, {})  # disallow local, global vars
+                try:
+                    val = ast.literal_eval(val)
+                except (SyntaxError, ValueError):
+                    if not self.default_as_string:
+                        raise
+                    # default as string if can't eval
             elif self.use_bool_abbreviation:
                 key, val = kv, True
             else:
