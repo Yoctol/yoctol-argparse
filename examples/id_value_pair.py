@@ -1,6 +1,6 @@
 from yoctol_argparse import (
     YoctolArgumentParser,
-    AppendIdValuePair,
+    IdValuePair,
     float_in_range,
 )
 
@@ -8,7 +8,8 @@ parser = YoctolArgumentParser()
 
 parser.add_argument(
     '--fruit',
-    action=AppendIdValuePair,
+    action=IdValuePair,
+    sub_action='append',
     id_choices=['apple', 'banana', 'lemon'],
     value_metavar="PRICE",
     value_type=float_in_range(0., inclusive=False),
