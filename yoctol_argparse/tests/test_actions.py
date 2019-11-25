@@ -1,21 +1,22 @@
 import pytest
 from unittest.mock import patch
 
-from ..actions import AppendIdValuePair, StoreIdKwargs
+from ..actions import IdValuePair, IdKwargs
 from ..parser import YoctolArgumentParser
 
 
-class TestAppendIdValuePair:
+class TestIdValuePair:
 
     @pytest.fixture(scope='class')
     def yoctol_parser(self):
         parser = YoctolArgumentParser(prog='main.py')
         parser.add_argument(
             '--foo',
-            action=AppendIdValuePair,
+            action=IdValuePair,
             id_choices=['a', 'b'],
             value_metavar='boo',
             value_type=int,
+            sub_action='append',
         )
         return parser
 
@@ -44,9 +45,10 @@ class TestStoreIdKwargs:
         parser = YoctolArgumentParser(prog='main.py')
         parser.add_argument(
             '--foo',
-            action=StoreIdKwargs,
+            action=IdKwargs,
             id_choices=['a', 'b'],
             use_bool_abbreviation=True,
+            sub_action='store',
         )
         return parser
 

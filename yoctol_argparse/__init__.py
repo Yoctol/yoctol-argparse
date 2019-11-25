@@ -5,7 +5,7 @@ from .__version__ import (
     __author__,
 )
 
-from .actions import AppendIdValuePair, StoreIdKwargs
+from .actions import IdValuePair, IdKwargs
 from .formatters import YoctolFormatter
 from .parser import YoctolArgumentParser
 from .types import (
