@@ -8,6 +8,7 @@ from .__version__ import (
 from .actions import IdValuePair, IdKwargs
 from .formatters import YoctolFormatter
 from .parser import YoctolArgumentParser
+from .namespace import NestedNamespace
 from .types import (
     int_in_range,
     float_in_range,

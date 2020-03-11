@@ -1,6 +1,7 @@
 import argparse
 
 from .formatters import YoctolFormatter
+from .namespace import NestedNamespace
 
 
 class YoctolArgumentParser(argparse.ArgumentParser):
@@ -34,3 +35,8 @@ class YoctolArgumentParser(argparse.ArgumentParser):
             add_help=add_help,
             allow_abbrev=allow_abbrev,
         )
+
+    def parse_known_args(self, args=None, namespace=None):
+        if namespace is None:
+            namespace = NestedNamespace()
+        return super().parse_known_args(args, namespace)
