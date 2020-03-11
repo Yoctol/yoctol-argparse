@@ -137,7 +137,7 @@ class YoctolFormatter(argparse.ArgumentDefaultsHelpFormatter):
 
 def format_choices(choices):
     choice_strs = [
-        termcolor.colored(str(choice), attrs=['underline', 'dark'])
+        termcolor.colored(str(choice), color='cyan')
         for choice in choices
     ]
     return f"{{{', '.join(choice_strs)}}}"
