@@ -1,6 +1,5 @@
 import argparse
 import ast
-from collections import namedtuple
 
 from .formatters import format_choices
 
@@ -52,7 +51,23 @@ class IdValuePair(argparse.Action):
 
 class IdKwargs(argparse.Action):
 
-    IdKwargsPair = namedtuple('IdKwargsPair', ['id', 'kwargs'])
+    class IdKwargsPair:
+
+        def __init__(self, id, **kwargs):  # noqa: A002
+            self.id = id  # noqa: A002
+            self.kwargs = kwargs
+
+        def __iter__(self):
+            return iter((self.id, self.kwargs))
+
+        def __str__(self):
+            if not self.kwargs:
+                return self.id
+            kwarg_string = ",".join(f"{k}={v}" for k, v in self.kwargs.items())
+            return f"{self.id} {kwarg_string}"
+
+        def __eq__(self, other):
+            return (self.id, self.kwargs) == other
 
     def __init__(
             self,
@@ -61,6 +76,7 @@ class IdKwargs(argparse.Action):
             use_bool_abbreviation=True,
             default_as_string=True,
             sub_action='store',
+            metavar=None,
             **kwargs,
         ):
         super().__init__(nargs='+', **kwargs)
@@ -71,7 +87,11 @@ class IdKwargs(argparse.Action):
         if sub_action not in ('store', 'append'):
             raise ValueError(f'unknown sub_action {sub_action:r}')
         self.sub_action = sub_action
-        self.metavar = (format_choices(id_choices), f'KEY1=VALUE1{split_token}KEY2=VALUE2')
+        if metavar is None:
+            metavar = (format_choices(id_choices), f'k1=v1{split_token}k2=v2')
+        elif isinstance(metavar, str):
+            metavar = (metavar, f'k1=v1{split_token}k2=v2')
+        self.metavar = metavar
 
     def __call__(self, parser, namespace, values, option_string=None):
         if len(values) == 2:
@@ -104,11 +124,11 @@ class IdKwargs(argparse.Action):
             )
 
         if self.sub_action == 'store':
-            setattr(namespace, self.dest, self.IdKwargsPair(id_, kwargs))
+            setattr(namespace, self.dest, self.IdKwargsPair(id_, **kwargs))
         elif self.sub_action == 'append':
             if not getattr(namespace, self.dest, None):
                 setattr(namespace, self.dest, [])
-            getattr(namespace, self.dest).append(self.IdKwargsPair(id_, kwargs))
+            getattr(namespace, self.dest).append(self.IdKwargsPair(id_, **kwargs))
         else:
             raise AssertionError
 
