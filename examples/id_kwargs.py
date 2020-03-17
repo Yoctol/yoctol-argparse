@@ -11,6 +11,8 @@ parser.add_argument(
     id_choices=['squat', 'bench', 'deadlift'],
     split_token=',',
     use_bool_abbreviation=True,
+    default=IdKwargs.IdKwargsPair('squat', weight=50, reps=10, sets=5, use_belt=True),
+    metavar='exercise_type',
     help='(exercise_type, kwargs_string)',
 )
 
